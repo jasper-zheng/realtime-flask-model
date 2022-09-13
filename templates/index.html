@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+      <meta charset="utf-8">
+      <title>Live</title>
+      <style>
+        #container {
+        }
+        #videoElement {
+        display: none;
+        }
+        #canvasElement {
+        width: 512px;
+        height: 512px;
+        border: 1px solid black;
+        }
+        #photo {
+        width: 512px;
+        height: 512px;
+        border: 1px solid black;
+        }
+      </style>
+    </head>
+    <body>
+      <div id="container">
+        <div>
+          <video autoplay="true" id="videoElement"></video>
+          <canvas id="canvasElement"></canvas>
+
+          <img id="photo">
+        </div>
+      </div>
+
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
+      <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
+      <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    </body>
+</html>
