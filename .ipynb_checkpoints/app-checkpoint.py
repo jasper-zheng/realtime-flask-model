@@ -18,7 +18,7 @@ app.config['SECRET_KEY'] = os.urandom(24).hex()
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
 
-processor = Processor(Pipeline(3,3,kernel_size=5), quality)
+processor = Processor(Pipeline(3,3,kernel_size=5))
 
 @app.route('/')
 def index():
