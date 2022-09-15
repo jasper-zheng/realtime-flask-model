@@ -6,7 +6,7 @@ from utils import base64_to_pil_image, pil_image_to_base64
 
 class Processor(object):
     def __init__(self, model_backend, quality = 0.75):
-        self.quality = quality*100
+        self.quality = int(quality*100)
         self.to_process = []
         self.to_output = []
         self.model_backend = model_backend

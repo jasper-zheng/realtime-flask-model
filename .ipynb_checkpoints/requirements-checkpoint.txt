@@ -13,4 +13,3 @@ typing_extensions==4.3.0
 Werkzeug==2.2.1
 wsproto==1.1.0
 zipp==3.8.1
-pyngrok==5.1.0

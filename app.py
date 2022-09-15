@@ -5,6 +5,7 @@ import logging
 from flask import Flask, render_template
 from flask_socketio import SocketIO, emit
 
+
 from processor import Processor
 from model import Pipeline
 
@@ -18,7 +19,11 @@ app.config['SECRET_KEY'] = os.urandom(24).hex()
 app.config['DEBUG'] = True
 socketio = SocketIO(app)
 
-processor = Processor(Pipeline(3,3,kernel_size=5), quality)
+# quality from server to client (0 - 1, default 0.75)
+quality = 0.75
+
+processor = Processor(Pipeline(3,3,kernel_size=5), quality = quality) 
+
 
 @app.route('/')
 def index():
@@ -38,8 +43,15 @@ def process_frame(input):
 def test_connection():
     app.logger.info("client connected")
 
+def handler(signal_received, frame):
+    # Handle any cleanup here
+    print('SIGINT or CTRL-C detected. Exiting gracefully')
+    exit(0)
+    
 if __name__ == '__main__':
     
-    socketio.run(app,port=5000)
+    signal(SIGINT, handler)
     
+    socketio.run(app,port=5000)
+        
     

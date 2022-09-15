@@ -1,6 +1,6 @@
 $(document).ready(function () {
   const FRAME_SIZE    = 256   // input frame size (left)
-  let crop_factor     = 0     // 0: no crop, 1: crop everything
+  let crop_factor     = 0.3     // 0: no crop, 1: crop everything
   const input_quality = 0.75  // quality from client to server
   const FRAME_RATE    = 100   // ms per frame
   
@@ -12,13 +12,14 @@ $(document).ready(function () {
   let ctx = canvas.getContext('2d');
   ctx.translate(FRAME_SIZE,1);
   ctx.scale(-1,1);
+  ctx.filter = 'blur(6px)';
   
   output_canvas = document.getElementById('outputCanvas');
   var localMediaStream = null;
 
   var socket = io.connect(location.protocol + '//' + document.domain + ':' + location.port + namespace);
 
-  function sendSnapshot() {
+  function sendFrame() {
 
     if (!localMediaStream) {
       return;
@@ -51,7 +52,7 @@ $(document).ready(function () {
     localMediaStream = stream;
 
     setInterval(function () {
-      sendSnapshot();
+      sendFrame();
     }, FRAME_RATE);
 
     socket.on('processed_frame',function(data){
