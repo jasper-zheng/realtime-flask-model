@@ -22,7 +22,7 @@ socketio = SocketIO(app)
 # quality from server to client (0 - 1, default 0.75)
 quality = 0.75
 
-processor = Processor(Pipeline(3,3,kernel_size=5), quality = quality) 
+processor = Processor(Pipeline(), quality = quality)
 
 
 @app.route('/')
@@ -49,8 +49,6 @@ def handler(signal_received, frame):
     exit(0)
     
 if __name__ == '__main__':
-    
-    signal(SIGINT, handler)
     
     socketio.run(app,port=5000)
         
