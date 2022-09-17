@@ -40,11 +40,11 @@ It doesn't handle multiple clients.
 
 ## Quickstart  
 
-### Define the processing pipeline  
-
 If using the pix2StyleGAN3 model, please download the [trained model](https://drive.google.com/file/d/1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv/view?usp=sharing) and place it in `saved_models` folder.  
+`gdown` command: `gdown 1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv -O ./model/network-snapshot-000193.pkl`   
 
-`gdown` command: `gdown 1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv -O ./model/network-snapshot-000193.pkl`  
+
+### Define the processing pipeline  
 
 1. Specify the processing pipeline in `Class Pipeline` in `model.py`. The `forward() ` method takes a PIL format frame and returns the processed frame in the same format.
 
