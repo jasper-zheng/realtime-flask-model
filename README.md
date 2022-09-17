@@ -6,7 +6,7 @@ This repository demonstrates **deploying a real-time image-to-image translation 
 
 ## How it Works  
 
-We're using Flask-SocketIO since it provides bi-directional communications between the web client and the model. We take inputs from the webcam via web clients, and send them to the model deployed on the flask server. The model processes the frames and returns them to the web client.  
+We're using [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/) since it provides bi-directional communications between the web client and the model. We take inputs from the webcam via web clients, and send them to the model deployed on the flask server. The model processes the frames and returns them to the web client.  
 
 ## Requirements
 
@@ -41,6 +41,10 @@ It doesn't handle multiple clients.
 ## Quickstart  
 
 ### Define the processing pipeline  
+
+If using the pix2StyleGAN3 model, please download the [trained model](https://drive.google.com/file/d/1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv/view?usp=sharing) and place it in `saved_models` folder.  
+
+`gdown` command: `gdown 1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv -O ./model/network-snapshot-000193.pkl`  
 
 1. Specify the processing pipeline in `Class Pipeline` in `model.py`. The `forward() ` method takes a PIL format frame and returns the processed frame in the same format.
 
