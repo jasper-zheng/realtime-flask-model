@@ -39,8 +39,26 @@ The same as [StyleGAN3](https://github.com/NVlabs/stylegan3#requirements)
 It doesn't handle multiple clients.
 
 ## Quickstart  
-Download the [trained model](#) and place it in `saved_models` folder.  
-```python
-cd realtime-flask-model  
+
+### Define the processing pipeline  
+
+1. Specify the processing pipeline in `Class Pipeline` in `model.py`. The `forward() ` method takes a PIL format frame and returns the processed frame in the same format.
+
+> The current code is for the pix2StyleGAN3 model. For the basic gaussian blur model, please remove the current Pipeline class and uncomment the Pipeline class below it.
+
+2. The size of the input frame, frame rate, and quality is defined in `static/js/main.js`, currently set to 256, 100ms and 0.75  
+
+3. The size of the return frame depends on your processing pipeline in `model.py`.  
+
+4. The model is added to the server in `app.py` (usually don't need to change this one).  
+
+### Activate the server   
+
+Port number is defined in `app.py`, currently set to 5000. Then run:   
+
+```python   
+cd realtime-flask-model
 python app.py
 ```
+
+The application is now running on `http://127.0.0.1:5000/`  
