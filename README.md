@@ -10,7 +10,7 @@ We're using [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/) s
 
 ## Requirements
 
-We provided a Gaussian blur model for basic pipeline demonstration, and a pix2stylegan3 model, which is based on StyleGAN3 and requires more computing power.
+We provided a Gaussian blur model for basic pipeline demonstration, and a pix2stylegan3 de-blurring model, which is based on StyleGAN3 and requires more computing power.
 
 ### GaussianBlur model only:  
 
@@ -40,8 +40,14 @@ It doesn't handle multiple clients.
 
 ## Quickstart  
 
+Clone the repository by running:
+```python
+git clone https://github.com/jasper-zheng/realtime-flask-model.git  
+cd realtime-flask-model
+```
+
 If using the pix2StyleGAN3 model, please download the [trained model](https://drive.google.com/file/d/1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv/view?usp=sharing) and place it in `saved_models` folder.  
-`gdown` command: `gdown 1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv -O ./model/network-snapshot-000193.pkl`   
+`gdown` command: `gdown 1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv -O ./saved_models/trained_model.pkl`   
 
 
 ### Define the processing pipeline  
@@ -65,4 +71,8 @@ cd realtime-flask-model
 python app.py
 ```
 
-The application is now running on `http://127.0.0.1:5000/`  
+The application is now running on `http://127.0.0.1:5000/`   
+
+
+## Deploying on Cloud GPUs [Optional]  
+To deploy the model on cloud GPUs (e.g. Colab or Paperspace's Gradient Notebook), [LocalXpose](https://localxpose.io/docs/) or [ngrok](https://ngrok.com/docs) is recommended.
