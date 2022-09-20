@@ -11,15 +11,16 @@ import torch
 import numpy as np
 
 
-network_pkl = '/notebooks/training-runs/00014-stylegan3-r-ffhq-256x256-gpus1-batch96-gamma2/network-snapshot-000064.pkl'
+network_pkl = './saved_models/demo_model.pkl'
 
     
 class Pipeline(torch.nn.Module):
     
-    def __init__(self, out_size = 512):
+    def __init__(self, in_size = 256, out_size = 512):
         super().__init__()
         self.out_size = out_size
         self.convert_tensor = ToTensor()
+        self.in_size = in_size
         
         device = torch.device('cuda')
         self.device = device
@@ -29,7 +30,14 @@ class Pipeline(torch.nn.Module):
             
         self.w_avg = self.g_model.mapping.w_avg.unsqueeze(0).unsqueeze(1).repeat(1, self.g_model.mapping.num_ws, 1).to(device)
         self.z = torch.from_numpy(np.random.randn(1, 512)).to(device)
+
+        self.initialise_plugins()
+
+    def initialise_plugins(self):
+      img = torch.zeros((1,3,self.in_size,self.in_size)).to(self.device)
+      _ = self.g_model(self.z, None, img)
     
+
     def forward(self, img):
         '''
         parameter:
