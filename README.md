@@ -47,7 +47,7 @@ cd realtime-flask-model
 ```
 
 If using the pix2StyleGAN3 model, please download the [trained model](https://drive.google.com/file/d/1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv/view?usp=sharing) and place it in `saved_models` folder.  
-`gdown` command: `gdown 1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv -O ./saved_models/trained_model.pkl`   
+`gdown` command: `gdown 1_j_zeBwnBkZgit2ozZ8_bR59z2jN9JUv -O ./saved_models/demo_model.pkl`   
 
 
 ### Define the processing pipeline  
