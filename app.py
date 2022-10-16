@@ -38,6 +38,9 @@ def process_frame(input):
     image_data = "data:image/jpeg;base64," + str(processor.get_frame(), "utf-8")
     emit('processed_frame', {'image_data': image_data}, namespace='/demo')
 
+@socketio.on('config_update', namespace='/demo')
+def update_configs(input):
+    processor.model_backend.update_configs(input)
 
 @socketio.on('connect', namespace='/demo')
 def test_connection():
@@ -47,9 +50,7 @@ def handler(signal_received, frame):
     # Handle any cleanup here
     print('SIGINT or CTRL-C detected. Exiting gracefully')
     exit(0)
-    
+
 if __name__ == '__main__':
-    
+
     socketio.run(app,port=5000)
-        
-    
