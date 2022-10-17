@@ -7,33 +7,66 @@
         #videoElement {display: none;}
         #canvasElement {border: 1px solid black;}
         #photo {border: 1px solid black;}
+        #layerNames { width: 180px; position: relative;}
+        #clusters { width: 300px;}
+        table td{vertical-align: top;}
+        .slider { width: 300px; margin-bottom: 20px}
+        .layerSelected { background-color: rgba(0,0,0,0.2); transition: 0.3s;}
+        .layerNamesText {position: relative; width: 80%;}
+        .layerNamesText:hover { background-color: rgba(0,0,0,0.08) }
+
       </style>
     </head>
     <body>
       <video autoplay="true" id="videoElement" ></video>
       <canvas id="inputCanvas"></canvas>
-      <img id="outputCanvas">
+      <img id="outputCanvas"></img>
 
-      <div class="slidecontainer">
-        <input type="range" step="1" min="-180" max="180" value="0" class="slider" id="angle">
-        <p>Value: <span></span></p>
-      </div>
-      <div class="slidecontainer">
-        <input type="range" step="1" min="-100" max="100" value="0" class="slider" id="translateX">
-        <p>Value: <span></span></p>
-      </div>
-      <div class="slidecontainer">
-        <input type="range" step="1" min="-100" max="100" value="0" class="slider" id="translateY">
-        <p>Value: <span></span></p>
-      </div>
-      <div class="slidecontainer">
-        <input type="range" step="0.01" min="0.1" max="2" value="0.5" class="slider" id="scale">
-        <p>Value: <span></span></p>
-      </div>
-      <div class="slidecontainer">
-        <input type="range" step="1" min="-180" max="180" value="0" class="slider" id="shear">
-        <p>Value: <span></span></p>
-      </div>
+      <table>
+        <td id="layerNames">
+        </td>
+        <td id="clusters">
+          <label for="idx">Cluster Index:</label>
+            <select name="idx" id="idx">
+              <option value="-1">All</option>
+              <option value="0">0</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+            </select>
+          <img id="clusterDemo"></img>
+        </td>
+        <td id="controllers">
+          <div class="slidecontainer">
+            <p>Value: <span></span></p>
+            <input type="range" step="1" min="-180" max="180" value="0" class="slider" id="angle">
+          </div>
+
+          <div class="slidecontainer">
+            <p>Value: <span></span></p>
+            <input type="range" step="1" min="-100" max="100" value="0" class="slider" id="translateX">
+          </div>
+
+          <div class="slidecontainer">
+            <p>Value: <span></span></p>
+            <input type="range" step="1" min="-100" max="100" value="0" class="slider" id="translateY">
+          </div>
+
+          <div class="slidecontainer">
+            <p>Value: <span></span></p>
+            <input type="range" step="0.01" min="0.1" max="2" value="1" class="slider" id="scale">
+          </div>
+
+          <div class="slidecontainer">
+            <p>Value: <span></span></p>
+            <input type="range" step="1" min="-180" max="180" value="0" class="slider" id="shear">
+          </div>
+        </td>
+
+      </table>
+
+
 
       <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
       <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>

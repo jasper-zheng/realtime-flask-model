@@ -24,9 +24,9 @@ class Processor(object):
         input_img = base64_to_pil_image(input_str)
 
         ######## Calling the backend model ##########
-        
+
         output_img = self.model_backend(input_img)
-        
+
         ######## Calling the backend model ##########
 
         # output_str is a base64 string in ascii
