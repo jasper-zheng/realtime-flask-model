@@ -9,8 +9,8 @@
         #photo {border: 1px solid black;}
         #layerNames { width: 180px; position: relative;}
         #clusters { width: 300px;}
-        table td{vertical-align: top;}
-        .slider { width: 300px; margin-bottom: 20px}
+        table td{vertical-align: top; border: solid}
+        .slider { width: 300px; margin-bottom: 25px; -webkit-appearance: none; appearance: none;background: #d3d3d3;}
         .layerSelected { background-color: rgba(0,0,0,0.2); transition: 0.3s;}
         .layerNamesText {position: relative; width: 80%;}
         .layerNamesText:hover { background-color: rgba(0,0,0,0.08) }
@@ -39,28 +39,32 @@
         </td>
         <td id="controllers">
           <div class="slidecontainer">
-            <p>Value: <span></span></p>
+            <div>Value: <span></span></div>
             <input type="range" step="1" min="-180" max="180" value="0" class="slider" id="angle">
           </div>
 
           <div class="slidecontainer">
-            <p>Value: <span></span></p>
+            <div>Value: <span></span></div>
             <input type="range" step="1" min="-100" max="100" value="0" class="slider" id="translateX">
           </div>
 
           <div class="slidecontainer">
-            <p>Value: <span></span></p>
+            <div>Value: <span></span></div>
             <input type="range" step="1" min="-100" max="100" value="0" class="slider" id="translateY">
           </div>
 
           <div class="slidecontainer">
-            <p>Value: <span></span></p>
-            <input type="range" step="0.01" min="0.1" max="2" value="1" class="slider" id="scale">
+            <div>Value: <span></span></div>
+            <input type="range" step="0.01" min="0.1" max="1.9" value="1" class="slider" id="scale">
           </div>
 
           <div class="slidecontainer">
-            <p>Value: <span></span></p>
-            <input type="range" step="1" min="-180" max="180" value="0" class="slider" id="shear">
+            <div>Value: <span></span></div>
+            <input type="range" step="1" min="-7" max="7" value="0" class="slider" id="erosion">
+          </div>
+          <div class="slidecontainer">
+            <div>Value: <span></span></div>
+            <input type="range" step="1" min="-7" max="7" value="0" class="slider" id="dilation">
           </div>
         </td>
 

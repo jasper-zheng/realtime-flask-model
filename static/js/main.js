@@ -19,7 +19,8 @@ $(document).ready(function () {
     "translateX": 0,
     "translateY": 0,
     "scale": 1,
-    "shear": 0
+    "erosion": 0,
+    "dilation": 0
   }
   var configs = {}
 
@@ -131,21 +132,20 @@ $(document).ready(function () {
 
   function updateSelection(name){
     layer_selection = name
-
     for (var i = 0; i < sliders.length; i++){
       var v = configs[layer_selection][sliders[i].id]
       sliders[i].value = v;
       output = sliders[i].previousElementSibling
       output.innerHTML = sliders[i].id + ": " + v;
-
       renderControllers(sliders[i], v);
     }
-
     var keys = Object.keys(layer_list)
     for (var i = 0; i < keys.length; i++){
       layer_list[keys[i]].setAttribute('class', 'layerNamesText')
     }
     layer_list[name].setAttribute('class', 'layerNamesText layerSelected')
+
+    updateClusterDemo()
   }
 
 
@@ -153,14 +153,18 @@ $(document).ready(function () {
   let cluster_dropdown = document.querySelector("#idx");
   let cluster_demo = document.querySelector("#clusterDemo");
   cluster_dropdown.onchange = function () {
+    configs[layer_selection]['cluster'] = cluster_dropdown.value;
+    updateClusterDemo()
+  };
+
+  function updateClusterDemo(){
     console.log(cluster_dropdown.value)
     let dataURL = canvas.toDataURL('image/jpeg',input_quality);
     socket.emit('change_cluster_demo', cluster_dropdown.value, layer_selection, dataURL)
-    configs[layer_selection]['cluster'] = cluster_dropdown.value;
     socket.on('return_cluster_demo',function(data){
       cluster_demo.setAttribute('src', data.image_data);
     });
-  };
+  }
 
 
 });

@@ -68,7 +68,8 @@ class Pipeline(torch.nn.Module):
            "translateX": 0,
            "translateY": 0,
            "scale": 1,
-           "shear": 0
+           "erosion": 0,
+           "dilation": 0
        }
        self.g_model = None
 
