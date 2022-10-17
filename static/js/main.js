@@ -2,7 +2,7 @@ $(document).ready(function () {
   const FRAME_SIZE    = 256   // input frame size (left)
   let crop_factor     = 0.3     // 0: no crop, 1: crop everything
   const input_quality = 0.75  // quality from client to server
-  const FRAME_RATE    = 100   // ms per frame
+  const FRAME_RATE    = 150   // ms per frame
 
   let namespace = "/demo";
   let video = document.querySelector("#videoElement");
@@ -52,7 +52,7 @@ $(document).ready(function () {
                   (1-crop_factor/2)*video.videoHeight,
                   0,0,FRAME_SIZE,FRAME_SIZE);
     let dataURL = canvas.toDataURL('image/jpeg',input_quality);
-    // socket.emit('input_frame', dataURL);
+    socket.emit('input_frame', dataURL);
   }
 
   socket.on('connect', function() {

@@ -45,7 +45,8 @@ def update_configs(name, input):
 @socketio.on('change_cluster_demo', namespace='/demo')
 def change_cluster_demo(cluster_idx, layer_name, img):
     img = img.split(",")[1]
-    img = processor.model_backend.get_cluster_demo(cluster_idx, layer_name, img)
+    # print(type(cluster_idx))
+    img = processor.model_backend.get_cluster_demo(int(cluster_idx), layer_name, img)
     image_data = "data:image/jpeg;base64," + str(img, "utf-8")
     emit('return_cluster_demo', {'image_data': image_data}, namespace='/demo')
 
