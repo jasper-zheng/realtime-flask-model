@@ -99,7 +99,7 @@ network_pkl = '/content/temp/00003-pix2stylegan3-r-ffhq-u-256x256-gpus1-batch32-
 
 class Pipeline(torch.nn.Module):
 
-   def __init__(self, kernel_size = 5, out_size = 256):
+   def __init__(self, kernel_size = 5, out_size = 512):
        super().__init__()
        self.out_size = out_size
        self.blur = GaussianBlur(kernel_size, sigma=1)

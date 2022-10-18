@@ -1,6 +1,6 @@
 $(document).ready(function () {
   const FRAME_SIZE    = 256   // input frame size (left)
-  let crop_factor     = 0.3     // 0: no crop, 1: crop everything
+  let crop_factor     = 0.2     // 0: no crop, 1: crop everything
   const input_quality = 0.75  // quality from client to server
   const FRAME_RATE    = 200   // ms per frame
 
@@ -191,11 +191,9 @@ $(document).ready(function () {
   let cluster_dropdown = document.querySelector("#idx");
   let cluster_demo = document.querySelector("#clusterDemo");
   cluster_dropdown.onchange = function () {
-    // configs[layer_selection]['cluster'] = cluster_dropdown.value;
     updateClusterDemo()
   };
   function updateClusterDemo(){
-    // console.log(cluster_dropdown.value)
     let dataURL = canvas.toDataURL('image/jpeg',input_quality);
     socket.emit('change_cluster_demo', cluster_dropdown.value, layer_selection, dataURL)
     socket.on('return_cluster_demo',function(data){
@@ -216,7 +214,6 @@ $(document).ready(function () {
     config_update = layer_selection;
     var keys = Object.keys(layer_list)
     for (var i = 0; i < keys.length; i++){
-      // layer_list[keys[i]].setAttribute('class', 'layerNamesText')
       configs[keys[i]] = {...configs_template};
     }
     renderControlTable();
