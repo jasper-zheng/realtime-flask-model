@@ -40,6 +40,7 @@ def process_frame(input):
 
 @socketio.on('config_update', namespace='/demo')
 def update_configs(name, input):
+    # print(input)
     processor.model_backend.update_configs(input)
 
 @socketio.on('change_cluster_demo', namespace='/demo')
