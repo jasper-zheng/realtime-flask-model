@@ -41,13 +41,21 @@ def process_frame(input):
 @socketio.on('config_update', namespace='/demo')
 def update_configs(name, input):
     # print(input)
-    processor.model_backend.update_configs(input)
+    processor.model_backend.update_configs(name, input)
 
 @socketio.on('change_cluster_demo', namespace='/demo')
 def change_cluster_demo(cluster_idx, layer_name, img):
     img = img.split(",")[1]
     # print(type(cluster_idx))
     img = processor.model_backend.get_cluster_demo(int(cluster_idx), layer_name, img)
+    image_data = "data:image/jpeg;base64," + str(img, "utf-8")
+    emit('return_cluster_demo', {'image_data': image_data}, namespace='/demo')
+    
+@socketio.on('regenerate_cluster', namespace='/demo')
+def regenerate_cluster(layer_name, img, num_of_clusters, cur_cluster_selection):
+    img = img.split(",")[1]
+    print(f'regenerating cluster for {layer_name}')
+    img = processor.model_backend.regenerate_cluster(layer_name, img, int(num_of_clusters), cur_cluster_selection = int(cur_cluster_selection))
     image_data = "data:image/jpeg;base64," + str(img, "utf-8")
     emit('return_cluster_demo', {'image_data': image_data}, namespace='/demo')
 
