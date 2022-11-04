@@ -380,7 +380,7 @@ $(document).ready(function () {
   function updateClusterDemo(){
     let dataURL = canvas.toDataURL('image/jpeg',input_quality);
     // socket.emit('change_cluster_demo', cluster_dropdown.value, layer_selection, dataURL)
-    socket.emit('change_cluster_demo', layer_selection, dataURL)
+    socket.emit('change_cluster_demo', layer_selection, cluster_numbers[layer_selection], dataURL)
   }
 
   socket.on('return_cluster_demo',function(data){

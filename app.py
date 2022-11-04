@@ -49,10 +49,10 @@ def clear_configs(name):
     processor.model_backend.update_configs(name, None)
 
 @socketio.on('change_cluster_demo', namespace='/demo')
-def change_cluster_demo(layer_name, img):
+def change_cluster_demo(layer_name, cluster_numbers, img):
     img = img.split(",")[1]
     # print(type(cluster_idx))
-    img = processor.model_backend.get_cluster_demo(layer_name, img)
+    img = processor.model_backend.get_cluster_demo(layer_name, cluster_numbers, img)
     image_datas = {}
     for idx, this_img in enumerate(img):
         image_datas[f'c{idx}'] = "data:image/jpeg;base64," + str(this_img, "utf-8")

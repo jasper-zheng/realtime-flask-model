@@ -18,21 +18,21 @@ class Processor(object):
     def process_one(self):
         if not self.to_process:
             return
-        # input is an ascii string. 
+        # input is an ascii string.
         input_str = self.to_process.pop(0)
         # convert it to a pil image
         input_img = base64_to_pil_image(input_str)
 
         ######## Calling the backend model ##########
-
-        output_img = self.model_backend(input_img)
+        if input_img is not None:
+            output_img = self.model_backend(input_img)
 
         ######## Calling the backend model ##########
 
         # output_str is a base64 string in ascii
-        output_str = pil_image_to_base64(output_img, quality = self.quality)
+            output_str = pil_image_to_base64(output_img, quality = self.quality)
         # convert eh base64 string in ascii to base64 string in _bytes_
-        self.to_output.append(output_str)
+            self.to_output.append(output_str)
 
     def keep_processing(self):
         while True:
