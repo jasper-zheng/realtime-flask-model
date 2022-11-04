@@ -227,6 +227,15 @@ $(document).ready(function () {
   }
   // let cluster_dropdown = document.querySelector("#idx");
   let cluster_demo = document.querySelector("#clusterDemo");
+  let demoContainer = document.querySelector("#demoContainer")
+  let demoImages = []
+  for (var idx = 0; idx < 7; idx++){
+    var img = document.createElement('img')
+    img.setAttribute('class','clusterDemoImg')
+    img.setAttribute('alt', '')
+    demoImages.push(img)
+    demoContainer.appendChild(img)
+  }
   // cluster_dropdown.onchange = function () {
   //   updateClusterDemo()
   // };
@@ -341,15 +350,11 @@ $(document).ready(function () {
     // console.log(layer_list)
     if (layer_list[name][0]){
       layer_list[name][0] = false
-      // // TODO:
-      var this_cluster = [...Array(cluster_numbers[name]).keys()]
-      console.log(cluster_numbers)
-      console.log(this_cluster)
-      var this_config = {...configs_template}
-      this_config['cluster'] = this_cluster
-      socket.emit('config_update', layer_selection, this_config);
+      // var this_cluster = [...Array(cluster_numbers[name]).keys()]
+      // var this_config = {...configs_template}
+      // this_config['cluster'] = this_cluster
+      socket.emit('config_clear', layer_selection);
       console.log(name + ' cleared')
-      console.log(this_config)
     } else {
       layer_list[name][0] = true
     }
@@ -375,10 +380,23 @@ $(document).ready(function () {
   function updateClusterDemo(){
     let dataURL = canvas.toDataURL('image/jpeg',input_quality);
     // socket.emit('change_cluster_demo', cluster_dropdown.value, layer_selection, dataURL)
-    socket.emit('change_cluster_demo', 0, layer_selection, dataURL)
+    socket.emit('change_cluster_demo', layer_selection, dataURL)
   }
+
   socket.on('return_cluster_demo',function(data){
-    cluster_demo.setAttribute('src', data.image_data);
+    // cluster_demo.setAttribute('src', data.image_data);
+    // // TODO:
+    var keys = Object.keys(data)
+    // console.log(keys)
+    // console.log(demoImages)
+    for (var i = 0; i < 7; i++){
+      // console.log(demoImages[i])
+      if (i<keys.length){
+        demoImages[i].setAttribute('src', data[keys[i]]);
+      } else {
+        demoImages[i].setAttribute('src', './static/blank.png');
+      }
+    }
   });
 
   let generateClustersBtn = document.querySelector("#generateClusters");

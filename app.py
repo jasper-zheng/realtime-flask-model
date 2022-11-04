@@ -43,21 +43,38 @@ def update_configs(name, input):
     # print(input)
     processor.model_backend.update_configs(name, input)
 
+@socketio.on('config_clear', namespace='/demo')
+def clear_configs(name):
+    # print(input)
+    processor.model_backend.update_configs(name, None)
+
 @socketio.on('change_cluster_demo', namespace='/demo')
-def change_cluster_demo(cluster_idx, layer_name, img):
+def change_cluster_demo(layer_name, img):
     img = img.split(",")[1]
     # print(type(cluster_idx))
-    img = processor.model_backend.get_cluster_demo(int(cluster_idx), layer_name, img)
-    image_data = "data:image/jpeg;base64," + str(img, "utf-8")
-    emit('return_cluster_demo', {'image_data': image_data}, namespace='/demo')
-    
+    img = processor.model_backend.get_cluster_demo(layer_name, img)
+    image_datas = {}
+    for idx, this_img in enumerate(img):
+        image_datas[f'c{idx}'] = "data:image/jpeg;base64," + str(this_img, "utf-8")
+
+    emit('return_cluster_demo', image_datas, namespace='/demo')
+
+    # image_data = "data:image/jpeg;base64," + str(img, "utf-8")
+    # emit('return_cluster_demo', {'image_data': image_data}, namespace='/demo')
+
 @socketio.on('regenerate_cluster', namespace='/demo')
 def regenerate_cluster(layer_name, img, num_of_clusters, cur_cluster_selection):
     img = img.split(",")[1]
-    print(f'regenerating cluster for {layer_name}')
+    print(f'regenerating cluster for {layer_name} with {int(num_of_clusters)} cluster')
     img = processor.model_backend.regenerate_cluster(layer_name, img, int(num_of_clusters), cur_cluster_selection = int(cur_cluster_selection))
-    image_data = "data:image/jpeg;base64," + str(img, "utf-8")
-    emit('return_cluster_demo', {'image_data': image_data}, namespace='/demo')
+    # image_data = "data:image/jpeg;base64," + str(img, "utf-8")
+    # emit('return_cluster_demo', {'image_data': image_data}, namespace='/demo')
+    image_datas = {}
+    print(f'return {len(img)}')
+    for idx, this_img in enumerate(img):
+        image_datas[f'c{idx}'] = "data:image/jpeg;base64," + str(this_img, "utf-8")
+
+    emit('return_cluster_demo', image_datas, namespace='/demo')
 
 @socketio.on('connect', namespace='/demo')
 def test_connection():

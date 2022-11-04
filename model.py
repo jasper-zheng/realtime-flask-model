@@ -105,7 +105,7 @@ classifier_path = {
 #       #  img = to_pil_image(img.add(1).div(2).clamp(0, 1)[0].cpu())
 #        img = self.g_model.generate_cluster_demo(idx, layer_name, img)
 #
-#        return pil_image_to_base64(img, quality = 50)
+#        return pil_image_to_base64(img, quality = 40)
 #
 #    def get_layer_names(self, start = 4, end = 6):
 #        if self.g_model is not None:
@@ -160,17 +160,24 @@ class Pipeline(torch.nn.Module):
                   "cluster": []
               }
        self.g_model = None
+       self.num_clusters = 5
 
-   def update_configs(self, c):
+   def update_configs(self, name, c):
        self.configs = c
 
-   def get_cluster_demo(self, idx, layer_name, img):
+   def get_cluster_demo(self, layer_name, img):
        img = base64_to_pil_image(img)
        img = self.convert_tensor(img).unsqueeze(0)*2-1
        img = img[:,0].unsqueeze(1)
 
-       img = to_pil_image(img.add(1).div(2).clamp(0, 1)[0].cpu())
-       return pil_image_to_base64(img, quality = 75)
+       grids = []
+       for i in range(self.num_clusters):
+          grids.append(pil_image_to_base64(to_pil_image(img.add(1).div(2).clamp(0, 1)[0]), quality = 40))
+
+       return grids
+
+       # img = to_pil_image(img.add(1).div(2).clamp(0, 1)[0].cpu())
+       # return pil_image_to_base64(img, quality = 40)
 
    def get_layer_names(self):
        if self.g_model is not None:
@@ -195,3 +202,7 @@ class Pipeline(torch.nn.Module):
        # img = torch.nn.functional.interpolate(img, size=(self.out_size,self.out_size))
        # img = to_pil_image(img.add(1).div(2).clamp(0, 1)[0].cpu())
        return img
+
+   def regenerate_cluster(self, layer_name, img, num_of_clusters = 5, cur_cluster_selection = 0):
+       self.num_clusters = num_of_clusters
+       return self.get_cluster_demo(layer_name,img)
