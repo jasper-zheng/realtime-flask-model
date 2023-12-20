@@ -10,7 +10,7 @@ We're using [Flask-SocketIO](https://flask-socketio.readthedocs.io/en/latest/) s
 
 ## Requirements
 
-We provided a Gaussian blur model for basic pipeline demonstration, and a pix2stylegan3 de-blurring model, which is based on StyleGAN3 and requires more computing power.
+We provided a Gaussian blur model for basic pipeline demonstration, and a [StyleGAN3-Canvas](https://github.com/jasper-zheng/StyleGAN-Canvas) de-blurring model, which is based on StyleGAN3 and requires more computing power.
 
 ### GaussianBlur model only:  
 
